@@ -9,10 +9,10 @@ namespace Gunluq_Infrastructure.Context
         {
         }
 
-        public DbSet<User> Users => Set<User>();
-        public DbSet<UserDiary> UserDiaries => Set<UserDiary>();
-        public DbSet<UserNote> UserNotes => Set<UserNote>();
-        public DbSet<UserEverydayWord> UserEverydayWords => Set<UserEverydayWord>();
+        public DbSet<User> Users { get; set; }
+        public DbSet<UserDiary> UserDiaries { get; set; }
+        public DbSet<UserNote> UserNotes { get; set; }
+        public DbSet<UserEverydayWord> UserEverydayWords { get; set; }
 
 
 
