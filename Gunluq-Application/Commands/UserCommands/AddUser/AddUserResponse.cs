@@ -1,0 +1,11 @@
+﻿namespace Gunluq_Application.Commands.UserCommands.AddUser
+{
+    public sealed class AddUserResponse
+    {
+        public required string Email { get; set;}
+        public required string UserName { get; set; }
+        public required string FirstName { get; set;}
+        public required string LastName { get; set;}
+        public DateTime CreatedDate { get; set;}
+    }
+}
