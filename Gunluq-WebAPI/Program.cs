@@ -1,8 +1,10 @@
 using Gunluq_Application.ApplicationAssembly;
 using Gunluq_Domain.Enums;
+using Gunluq_Infrastructure.Context;
 using Gunluq_WebAPI.Extensions;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi;
 using Swashbuckle.AspNetCore.Filters;
@@ -58,6 +60,7 @@ namespace Gunluq_WebAPI
             builder.Services.AddServices();
             builder.Services.ValidationRegistration();
 
+            builder.Services.AddDbContext<GunluqDbContext>(options => options.UseNpgsql(connectionString));
 
             builder.Services.AddAuthentication(options =>
             {
