@@ -8,7 +8,6 @@ namespace Gunluq_Domain.Entities
         public User()
         {
             Role = Role.User;
-            Status = Status.Active;
             UserDiaries = new List<UserDiary>();
             UserNotes = new List<UserNote>();
             UserEverydayWords = new List<UserEverydayWord>();

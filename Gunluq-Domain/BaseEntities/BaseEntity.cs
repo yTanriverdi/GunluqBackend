@@ -9,7 +9,6 @@ namespace Gunluq_Domain.BaseEntities
             Id = Guid.NewGuid();
             CreatedDate = DateTime.UtcNow;
             Status = Status.Active;
-            
         }
         public Guid Id { get; set; }
         public DateTime CreatedDate { get; set; }

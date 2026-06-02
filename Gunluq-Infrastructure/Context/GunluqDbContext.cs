@@ -21,22 +21,22 @@ namespace Gunluq_Infrastructure.Context
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<User>()
-                .HasMany(u => u.UserDiaries)
-                .WithOne()
-                .HasForeignKey(d => d.UserId)
-                .OnDelete(DeleteBehavior.Cascade);
+               .HasMany(u => u.UserDiaries)
+               .WithOne(d => d.User)
+               .HasForeignKey(d => d.UserId)
+               .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<User>()
-                .HasMany(u => u.UserNotes)
-                .WithOne()
-                .HasForeignKey(n => n.UserId)
-                .OnDelete(DeleteBehavior.Cascade);
+               .HasMany(u => u.UserNotes)
+               .WithOne(n => n.User)
+               .HasForeignKey(n => n.UserId)
+               .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<User>()
-                .HasMany(u => u.UserEverydayWords)
-                .WithOne()
-                .HasForeignKey(w => w.UserId)
-                .OnDelete(DeleteBehavior.Cascade);
+               .HasMany(u => u.UserEverydayWords)
+               .WithOne(w => w.User)
+               .HasForeignKey(w => w.UserId)
+               .OnDelete(DeleteBehavior.Cascade);
         }
     }
 

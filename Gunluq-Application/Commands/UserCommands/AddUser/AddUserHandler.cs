@@ -22,7 +22,7 @@ namespace Gunluq_Application.Commands.UserCommands.AddUser
         public async Task<ApplicationResponse<AddUserResponse>> Handle(AddUserCommand addUserCommand, CancellationToken cancellationToken)
         {
             User? anyUser = await _userRepository.GetUserByEmailAsync(addUserCommand.Email, cancellationToken);
-            if (anyUser is not null) return ApplicationResponse<AddUserResponse>.Fail(UserMessages.UserNotFound);
+            if (anyUser is not null) return ApplicationResponse<AddUserResponse>.Fail(UserMessages.UserAlreadyExists);
             
             var crypto = _userDiaryCrypto.CreateUserCrypto();
 
