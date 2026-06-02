@@ -28,8 +28,7 @@ namespace Gunluq_Application.PasswordHelper
         /// <returns>Şifre doğru veya yanlış şeklinde TRUE - FALSE döner</returns>
         public static bool VerifyPassword(string hashedPassword, string providedPassword)
         {
-            var hasOfInput = Hash(hashedPassword);
-            return hasOfInput == providedPassword;
+            return Hash(providedPassword) == hashedPassword;
         }
     }
 }
