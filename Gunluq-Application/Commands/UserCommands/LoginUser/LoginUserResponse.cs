@@ -13,5 +13,6 @@ namespace Gunluq_Application.Commands.UserCommands.LoginUser
         public string JwtToken { get; set; } = default!;
         public DateTime CreatedDate { get; set; }
         public DateTime? UpdatedDate { get; set; } 
+        public DateTime? LastJwtDate { get; set; }
     }
 }
