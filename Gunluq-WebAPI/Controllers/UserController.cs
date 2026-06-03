@@ -44,7 +44,6 @@ namespace Gunluq_WebAPI.Controllers
             if (!loginUserResponse.Success) return BadRequest(ApiResponse.FailResponse(loginUserResponse.Message, 400));
             string jwtToken = JwtService.GenerateToken(loginUserResponse.Data!.UserId.ToString(), loginUserResponse.Data!.UserName, loginUserResponse.Data!.Email, loginUserResponse.Data!.Role.ToString());
             loginUserResponse.Data.JwtToken = jwtToken;
-            loginUserResponse.Data.LastJwtDate = DateTime.UtcNow.AddMinutes(60);
             return Ok(ApiResponse<LoginUserResponse>.SuccessResponse(loginUserResponse.Data!, loginUserResponse.Message, 200));
         }
 
