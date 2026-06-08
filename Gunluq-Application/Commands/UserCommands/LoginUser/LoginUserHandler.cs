@@ -2,7 +2,7 @@
 using Gunluq_Application.Interfaces;
 using Gunluq_Application.PasswordHelper;
 using Gunluq_Application.ResponseMessages;
-using Gunluq_Domain.Entities;
+using Gunluq_Domain.DTOs;
 using MediatR;
 
 namespace Gunluq_Application.Commands.UserCommands.LoginUser
@@ -18,22 +18,25 @@ namespace Gunluq_Application.Commands.UserCommands.LoginUser
 
         public async Task<ApplicationResponse<LoginUserResponse>> Handle(LoginUserCommand loginUserCommand, CancellationToken cancellationToken)
         {
-            User? foundUser = await _userRepository.GetUserByEmailAsync(loginUserCommand.Email, cancellationToken);
-            if(foundUser is null) return ApplicationResponse<LoginUserResponse>.Fail(UserMessages.WrongEmailOrPassword);
+            LoginUserInfo? foundUser = await _userRepository.GetForLoginUserAsync(loginUserCommand.Email, cancellationToken);
+            if(foundUser?.User is null) return ApplicationResponse<LoginUserResponse>.Fail(UserMessages.WrongEmailOrPassword);
             else
             {
-                bool hashedPassword = PasswordHasher.VerifyPassword(foundUser.Password, loginUserCommand.Password);
+                bool hashedPassword = PasswordHasher.VerifyPassword(foundUser.User.Password, loginUserCommand.Password); 
                 if(!hashedPassword) return ApplicationResponse<LoginUserResponse>.Fail(UserMessages.WrongEmailOrPassword);
                 return ApplicationResponse<LoginUserResponse>.Ok(new LoginUserResponse
                 {
-                    UserId = foundUser.Id,
-                    Email = foundUser.Email,
-                    FirstName = foundUser.FirstName,
-                    LastName = foundUser.LastName,
-                    UserName = foundUser.UserName,
-                    Role = foundUser.Role,
-                    CreatedDate = foundUser.CreatedDate,
-                    UpdatedDate = foundUser.UpdatedDate
+                    UserId = foundUser.User.Id,
+                    Email = foundUser.User.Email,
+                    FirstName = foundUser.User.FirstName,
+                    LastName = foundUser.User.LastName,
+                    UserName = foundUser.User.UserName,
+                    Role = foundUser.User.Role,
+                    CreatedDate = foundUser.User.CreatedDate,
+                    UpdatedDate = foundUser.User.UpdatedDate,
+                    DiaryCount = foundUser.DiaryCount,
+                    EverydayWordCount = foundUser.EverydayWordCount,
+                    NoteCount = foundUser.NoteCount
                 }, UserMessages.LoginAccess);
             }
         }

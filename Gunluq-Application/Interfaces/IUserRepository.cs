@@ -1,4 +1,4 @@
-﻿
+﻿using Gunluq_Domain.DTOs;
 using Gunluq_Domain.Entities;
 
 namespace Gunluq_Application.Interfaces
@@ -75,5 +75,13 @@ namespace Gunluq_Application.Interfaces
         /// <param name="newPassword">Yeni Şifre</param>
         /// <returns></returns>
         Task<bool> UserPasswordUpdateAsync(Guid userId, string newPassword, CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Kullanıcı giriş yaparken gerekli bilgilerle getirir
+        /// </summary>
+        /// <param name="email">Kullanıcı E-posta</param>
+        /// <param name="cancellationToken"></param>
+        /// <returns>Bağlı oluğudu bilgilerle User döner</returns>
+        Task<LoginUserInfo?> GetForLoginUserAsync(string email, CancellationToken cancellationToken);
     }
 }

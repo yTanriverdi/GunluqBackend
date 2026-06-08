@@ -1,4 +1,5 @@
 ﻿using Gunluq_Application.Interfaces;
+using Gunluq_Domain.DTOs;
 using Gunluq_Domain.Entities;
 using Gunluq_Domain.Enums;
 using Gunluq_Infrastructure.Context;
@@ -46,6 +47,22 @@ namespace Gunluq_Infrastructure.Repositories
         public async Task<List<User>> GetAllUsersAsync(CancellationToken cancellationToken)
         {
             return await _gunluqDbContext.Users.AsNoTracking().Where(x => x.Status == Status.Active).ToListAsync(cancellationToken);
+        }
+
+        public async Task<LoginUserInfo?> GetForLoginUserAsync(string email, CancellationToken cancellationToken)
+        {
+            return await _gunluqDbContext.Users
+                .AsNoTracking()
+                .Where(x => x.Email == email &&
+                    x.Status == Status.Active)
+                .Select(x => new LoginUserInfo
+                {
+                    User = x,
+                    DiaryCount = x.UserDiaries.Count(x => x.Status == Status.Active),
+                    NoteCount = x.UserNotes.Count(x => x.Status == Status.Active),
+                    EverydayWordCount = x.UserEverydayWords.Count(x => x.Status == Status.Active)
+                })
+                .FirstOrDefaultAsync(cancellationToken);
         }
 
         public async Task<User?> GetUserByEmailAsync(string email,CancellationToken cancellationToken)

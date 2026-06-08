@@ -10,6 +10,9 @@ namespace Gunluq_Application.Commands.UserCommands.LoginUser
         public required string FirstName { get; set; }
         public required string LastName { get; set; }
         public Role Role { get; set; }
+        public int DiaryCount { get; set; }
+        public int NoteCount { get; set; }
+        public int EverydayWordCount { get; set; }
         public string JwtToken { get; set; } = default!;
         public DateTime CreatedDate { get; set; }
         public DateTime? UpdatedDate { get; set; }
