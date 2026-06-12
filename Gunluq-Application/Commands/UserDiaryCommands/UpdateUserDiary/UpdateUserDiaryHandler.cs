@@ -47,6 +47,8 @@ namespace Gunluq_Application.Commands.UserDiaryCommands.UpdateUserDiary
                 Id = updatedUserDiary.Id,
                 UserId = updatedUserDiary.UserId,
                 Content = updateUserDiaryCommand.Content,
+                DiaryTag = updateUserDiaryCommand.DiaryTag,
+                Feel = updateUserDiaryCommand.Feel,
                 CreatedDate = updatedUserDiary.CreatedDate,
                 UpdatedDate = updatedUserDiary.UpdatedDate
             };
