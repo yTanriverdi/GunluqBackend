@@ -67,7 +67,7 @@ namespace Gunluq_Infrastructure.Repositories
             DateTime startOfDay = DateTime.UtcNow.Date;
             DateTime endOfDay = startOfDay.AddDays(1);
 
-            return await _gunluqDbContext.UserDiaries.FirstOrDefaultAsync(x => x.UserId == userId && x.CreatedDate >= startOfDay && x.CreatedDate < endOfDay, cancellationToken);
+            return await _gunluqDbContext.UserDiaries.FirstOrDefaultAsync(x => x.UserId == userId && (x.CreatedDate >= startOfDay && x.CreatedDate < endOfDay) && x.Status == Status.Active, cancellationToken);
         }
 
         public async Task<UserDiary> UpdateUserDiaryAsync(UserDiary userDiary, CancellationToken cancellationToken)

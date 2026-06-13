@@ -124,7 +124,6 @@ namespace Gunluq_WebAPI
             app.UseHttpsRedirection();
 
             app.UseCors("gunluqPolicy");
-            app.UseHttpsRedirection();
 
             app.UseAuthentication();
             app.UseAuthorization();
