@@ -54,7 +54,7 @@ namespace Gunluq_Infrastructure.Repositories
 
         public async Task<List<UserDiary>> GetAllUserDiaryByUserIdAsync(Guid userId, CancellationToken cancellationToken)
         {
-            return await _gunluqDbContext.UserDiaries.Where(x => x.UserId == userId).ToListAsync(cancellationToken);
+            return await _gunluqDbContext.UserDiaries.Where(x => x.UserId == userId && x.Status == Status.Active).OrderByDescending(x => x.CreatedDate).ToListAsync(cancellationToken);
         }
 
         public async Task<UserDiary?> GetUserDiaryByIdAsync(Guid userDiaryId, CancellationToken cancellationToken)
