@@ -1,14 +1,13 @@
 ﻿using Gunluq_Application.ApplicationResponse;
 using Gunluq_Application.DiarySecurity;
 using Gunluq_Application.Interfaces;
-using Gunluq_Application.Queries.UserEverydayWordQueries.GetUserEverydayWordById;
 using Gunluq_Application.ResponseMessages;
 using Gunluq_Domain.Entities;
-using System.Collections.Generic;
+using MediatR;
 
 namespace Gunluq_Application.Queries.UserNoteQueries.GetAllUserNoteByUserId
 {
-    public class GetAllUserNoteByUserIdHandler
+    public class GetAllUserNoteByUserIdHandler : IRequestHandler<GetAllUserNoteByUserIdQuery, ApplicationResponse<List<GetAllUserNoteByUserIdResponse>>>
     {
         private readonly IUserNoteRepository _userNoteRepository;
         private readonly IUserRepository _userRepository;

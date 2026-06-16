@@ -68,13 +68,13 @@ namespace Gunluq_WebAPI.Controllers
         }
 
 
-        [Authorize(Policy = "UserOrAdmin")]
-        [HttpGet("GetUserNoteByUserId")]
-        public async Task<IActionResult> GetUserNoteByUserId([FromQuery] GetAllUserNoteByUserIdQuery getAllUserNoteByUserIdQuery, CancellationToken cancellationToken)
-        {
-            ApplicationResponse<List<GetAllUserNoteByUserIdResponse>> getAllUserNoteByUserIdResponse = await _mediator.Send(getAllUserNoteByUserIdQuery, cancellationToken);
-            if (!getAllUserNoteByUserIdResponse.Success) return BadRequest(ApiResponse.FailResponse(getAllUserNoteByUserIdResponse.Message, 400));
-            return Ok(ApiResponse<List<GetAllUserNoteByUserIdResponse>>.SuccessResponse(getAllUserNoteByUserIdResponse.Data!, getAllUserNoteByUserIdResponse.Message, 200));
-        }
+        //[Authorize(Policy = "UserOrAdmin")]
+        //[HttpGet("GetUserNoteByUserId")]
+        //public async Task<IActionResult> GetUserNoteByUserId([FromQuery] GetAllUserNoteByUserIdQuery getAllUserNoteByUserIdQuery, CancellationToken cancellationToken)
+        //{
+        //    ApplicationResponse<List<GetAllUserNoteByUserIdResponse>> getAllUserNoteByUserIdResponse = await _mediator.Send(getAllUserNoteByUserIdQuery, cancellationToken);
+        //    if (!getAllUserNoteByUserIdResponse.Success) return BadRequest(ApiResponse.FailResponse(getAllUserNoteByUserIdResponse.Message, 400));
+        //    return Ok(ApiResponse<List<GetAllUserNoteByUserIdResponse>>.SuccessResponse(getAllUserNoteByUserIdResponse.Data!, getAllUserNoteByUserIdResponse.Message, 200));
+        //}
     }
 }
