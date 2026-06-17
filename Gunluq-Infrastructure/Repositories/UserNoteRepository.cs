@@ -40,7 +40,7 @@ namespace Gunluq_Infrastructure.Repositories
 
         public async Task<List<UserNote>> GetAllUserNoteByUserIdAsync(Guid userId, CancellationToken cancellationToken)
         {
-            return await _gunluqDbContext.UserNotes.Where(x => x.UserId == userId && x.Status == Status.Active).ToListAsync(cancellationToken);
+            return await _gunluqDbContext.UserNotes.Where(x => x.UserId == userId && x.Status == Status.Active).OrderByDescending(x => x.CreatedDate).ToListAsync(cancellationToken);
         }
 
         public async Task<UserNote?> GetUserNoteByIdAsync(Guid userNoteId, CancellationToken cancellationToken)
