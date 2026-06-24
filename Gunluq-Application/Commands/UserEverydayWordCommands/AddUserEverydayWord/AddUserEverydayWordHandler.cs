@@ -29,7 +29,7 @@ namespace Gunluq_Application.Commands.UserEverydayWordCommands.AddUserEverydayWo
             };
 
             UserEverydayWord addedUserEverydayWord = await _userEverydayWordRepository.AddUserEverydayWordAsync(userEverydayWord, cancellationToken);
-            return ApplicationResponse<AddUserEverydayWordResponse>.Ok(new AddUserEverydayWordResponse { Id = addedUserEverydayWord.Id, Content = addedUserEverydayWord.Content , CreatedDate = addedUserEverydayWord.CreatedDate}, UserEverydayWordMessages.AddUserEverydayWordSuccess);
+            return ApplicationResponse<AddUserEverydayWordResponse>.Ok(new AddUserEverydayWordResponse { Id = addedUserEverydayWord.Id,UserId = addedUserEverydayWord.UserId, Content = addedUserEverydayWord.Content , CreatedDate = addedUserEverydayWord.CreatedDate}, UserEverydayWordMessages.AddUserEverydayWordSuccess);
         }
     }
 }
