@@ -59,7 +59,7 @@ namespace Gunluq_Infrastructure.Repositories
         {
             DateTime startDate = DateTime.UtcNow.Date;
             DateTime endDate = startDate.AddDays(1);
-            return await _gunluqDbContext.UserEverydayWords.FirstOrDefaultAsync(x => x.Status == Status.Active && x.CreatedDate >= startDate && x.CreatedDate < endDate, cancellationToken);
+            return await _gunluqDbContext.UserEverydayWords.FirstOrDefaultAsync(x => x.UserId == userId && x.Status == Status.Active && x.CreatedDate >= startDate && x.CreatedDate < endDate, cancellationToken);
         }
 
         public async Task<UserEverydayWord> UpdateEverydayWordAsync(UserEverydayWord userEverydayWord, CancellationToken cancellationToken)
