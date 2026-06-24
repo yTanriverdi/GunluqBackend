@@ -13,7 +13,7 @@ namespace Gunluq_WebAPI.Validations.UserEverydayWordValidations.UserEverydayWord
 
             RuleFor(x => x.Content)
                 .NotEmpty().WithMessage("Günlük cümleler içeriği zorunludur")
-                .MaximumLength(200).WithMessage("Günlük cümleler içeriği 200 karakterden uzun olamaz");
+                .MaximumLength(400).WithMessage("Günlük cümleler içeriği 400 karakterden uzun olamaz");
         }
     }
 }
