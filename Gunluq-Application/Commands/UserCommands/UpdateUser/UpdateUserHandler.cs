@@ -17,7 +17,7 @@ namespace Gunluq_Application.Commands.UserCommands.UpdateUser
 
         public async Task<ApplicationResponse<UpdateUserResponse>> Handle(UpdateUserCommand updateUserCommand, CancellationToken cancellationToken)
         {
-            User? anyUser = await _userRepository.GetUserByEmailAsync(updateUserCommand.Email, cancellationToken);
+            User? anyUser = await _userRepository.GetUserByIdAsync(updateUserCommand.userId, cancellationToken);
             if (anyUser is null)
                 return ApplicationResponse<UpdateUserResponse>.Fail(UserMessages.UserNotFound);
 
