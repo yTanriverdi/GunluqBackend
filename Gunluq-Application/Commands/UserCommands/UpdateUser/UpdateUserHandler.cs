@@ -20,7 +20,7 @@ namespace Gunluq_Application.Commands.UserCommands.UpdateUser
             User? anyUser = await _userRepository.GetUserByIdAsync(updateUserCommand.UserId, cancellationToken);
             if (anyUser is null)
                 return ApplicationResponse<UpdateUserResponse>.Fail(UserMessages.UserNotFound);
-
+            
             anyUser.Email = updateUserCommand.Email;
             anyUser.UserName = updateUserCommand.UserName;
             anyUser.FirstName = updateUserCommand.FirstName;
@@ -31,6 +31,7 @@ namespace Gunluq_Application.Commands.UserCommands.UpdateUser
 
             UpdateUserResponse updateUserResponse = new UpdateUserResponse
             {
+                UserId = updateUserCommand.UserId,
                 Email = userUpdateRes.Email,
                 UserName = userUpdateRes.UserName,
                 FirstName = userUpdateRes.FirstName,
