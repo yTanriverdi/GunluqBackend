@@ -7,6 +7,9 @@ namespace Gunluq_WebAPI.Validations.UserValidations.UserCommandValidations
     {
         public UserUpdateValidator()
         {
+            RuleFor(x => x.UserId)
+                .NotEmpty().WithMessage("Kullanıcı Id zorunludur")
+                .NotEqual(Guid.Empty).WithMessage("Geçerli bir kullanıcı Id girilmelidir");
             RuleFor(x => x.Email)
                 .NotEmpty().WithMessage("E-posta zorunludur")
                 .EmailAddress().WithMessage("Geçerli bir E-posta giriniz");
