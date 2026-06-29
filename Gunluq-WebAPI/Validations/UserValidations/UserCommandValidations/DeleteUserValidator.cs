@@ -10,6 +10,9 @@ namespace Gunluq_WebAPI.Validations.UserValidations.UserCommandValidations
             RuleFor(x => x.UserId)
                 .NotEmpty().WithMessage("Kullanıcı Id zorunludur")
                 .NotEqual(Guid.Empty).WithMessage("Geçerli bir kullanıcı Id girilmelidir");
+
+            RuleFor(x => x.Password)
+                .NotEmpty().WithMessage("Şifre zorunludur");
         }
     }
 }

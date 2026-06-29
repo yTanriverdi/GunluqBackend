@@ -1,5 +1,6 @@
 ﻿using Gunluq_Application.ApplicationResponse;
 using Gunluq_Application.Interfaces;
+using Gunluq_Application.PasswordHelper;
 using Gunluq_Application.ResponseMessages;
 using Gunluq_Domain.Entities;
 using MediatR;
@@ -19,6 +20,8 @@ namespace Gunluq_Application.Commands.UserCommands.DeleteUser
         {
             User? foundUser = await _userRepository.GetUserByIdAsync(deleteUserCommand.UserId, cancellationToken);
             if (foundUser is null) return ApplicationResponse<DeleteUserResponse>.Fail(UserMessages.UserNotFound);
+            var password = PasswordHasher.VerifyPassword(foundUser.Password, deleteUserCommand.Password);
+            if (!password) return ApplicationResponse<DeleteUserResponse>.Fail(UserMessages.WrongPassword);
             bool deleteUserResult = await _userRepository.DeleteUserAsync(deleteUserCommand.UserId, cancellationToken);
             if(!deleteUserResult) return ApplicationResponse<DeleteUserResponse>.Fail(UserMessages.UserDeleteFail);
             return new ApplicationResponse<DeleteUserResponse>
