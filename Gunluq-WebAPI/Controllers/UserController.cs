@@ -5,6 +5,7 @@ using Gunluq_Application.Commands.UserCommands.ChangeUserRole;
 using Gunluq_Application.Commands.UserCommands.DeleteUser;
 using Gunluq_Application.Commands.UserCommands.LoginUser;
 using Gunluq_Application.Commands.UserCommands.UpdateUser;
+using Gunluq_Application.Queries.UserDiaryQueries.GetAnalysis;
 using Gunluq_Application.Queries.UserQueries.GetAllUsers;
 using Gunluq_Application.Queries.UserQueries.GetUserByEmail;
 using Gunluq_Application.Queries.UserQueries.GetUserById;
@@ -118,6 +119,15 @@ namespace Gunluq_WebAPI.Controllers
             ApplicationResponse<GetUserByUserNameResponse> getUserByUserNameResponse = await _mediator.Send(getUserByUserNameQuery, cancellationToken);
             if (!getUserByUserNameResponse.Success) return BadRequest(ApiResponse.FailResponse(getUserByUserNameResponse.Message, 400));
             return Ok(ApiResponse<GetUserByUserNameResponse>.SuccessResponse(getUserByUserNameResponse.Data!, getUserByUserNameResponse.Message, 200));
+        }
+
+        [Authorize(Policy = "UserOrAdmin")]
+        [HttpGet("GetUserAnalysis")]
+        public async Task<IActionResult> GetUserAnalysis([FromQuery] GetAnalysisQuery getAnalysisQuery, CancellationToken cancellationToken)
+        {
+            ApplicationResponse<GetAnalysisResponse> getUserAnalysisResponse = await _mediator.Send(getAnalysisQuery, cancellationToken);
+            if (!getUserAnalysisResponse.Success) return BadRequest(ApiResponse.FailResponse(getUserAnalysisResponse.Message, 400));
+            return Ok(ApiResponse<GetAnalysisResponse>.SuccessResponse(getUserAnalysisResponse.Data!, getUserAnalysisResponse.Message, 200));
         }
     }
 }

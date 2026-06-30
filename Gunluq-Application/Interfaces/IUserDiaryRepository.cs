@@ -1,4 +1,5 @@
-﻿using Gunluq_Domain.Entities;
+﻿using Gunluq_Domain.DTOs;
+using Gunluq_Domain.Entities;
 using Gunluq_Domain.Enums;
 
 namespace Gunluq_Application.Interfaces
@@ -83,5 +84,53 @@ namespace Gunluq_Application.Interfaces
         /// <param name="cancellationToken"></param>
         /// <returns>UserDiary döner</returns>
         Task<UserDiary?> GetUserDiaryByIdAsync(Guid userDiaryId, CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Kullanıcının aktif günlük sayısını döner
+        /// </summary>
+        /// <param name="userId">Kullanıcı Id'si</param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        Task<int> GetTotalDiaryCountAsync(Guid userId, CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Kullanıcının ortalama His durumunu döner
+        /// </summary>
+        /// <param name="userId">Kullanıcı Id'si</param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        Task<double> GetAverageFeelAsync(Guid userId, CancellationToken cancellationToken);
+
+        /// <summary>
+        /// En çok hangi konu ile günlük yazıldığını döner
+        /// </summary>
+        /// <param name="userId">Kullanıcı Id'si</param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        Task<MostUsedTagInfo?> GetMostUsedTagAsync(Guid userId, CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Kullanıcının hangi konuda kaç tane günlük yazdığını döner
+        /// </summary>
+        /// <param name="userId">Kullanıcı Id'si</param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        Task<List<TagCountsInfo>> GetTagCountsAsync(Guid userId, CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Kullanıcının en mutlu olduğu konuyu ve ortalamasını döner
+        /// </summary>
+        /// <param name="userId">Kullanıcı Id'si</param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        Task<BestTagInfo?> GetBestTagAsync(Guid userId, CancellationToken cancellationToken);
+        
+        /// <summary>
+        /// Kullanıcının en mutsuz olduğu konuyu ve ortalamasını döner
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        Task<WorstTagInfo?> GetWorstTagInfoAsync(Guid userId, CancellationToken cancellationToken);
     }
 }

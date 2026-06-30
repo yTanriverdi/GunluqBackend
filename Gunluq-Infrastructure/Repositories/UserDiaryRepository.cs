@@ -1,4 +1,5 @@
 ﻿using Gunluq_Application.Interfaces;
+using Gunluq_Domain.DTOs;
 using Gunluq_Domain.Entities;
 using Gunluq_Domain.Enums;
 using Gunluq_Infrastructure.Context;
@@ -57,6 +58,31 @@ namespace Gunluq_Infrastructure.Repositories
             return await _gunluqDbContext.UserDiaries.Where(x => x.UserId == userId && x.Status == Status.Active).OrderByDescending(x => x.CreatedDate).ToListAsync(cancellationToken);
         }
 
+        public async Task<double> GetAverageFeelAsync(Guid userId, CancellationToken cancellationToken)
+        {
+            return await _gunluqDbContext.UserDiaries.Where(x => x.UserId == userId && x.Status == Status.Active).AverageAsync(x => (int)x.Feel);
+        }
+
+        public async Task<BestTagInfo?> GetBestTagAsync(Guid userId, CancellationToken cancellationToken)
+        {
+            return await _gunluqDbContext.UserDiaries.Where(x => x.UserId == userId && x.Status == Status.Active).GroupBy(x => x.DiaryTag).Select(x => new BestTagInfo { DiaryTag = x.Key, AverageFeel = x.Average(x => (int)x.Feel) }).OrderBy(x => x.AverageFeel).FirstOrDefaultAsync(cancellationToken);
+        }
+
+        public async Task<MostUsedTagInfo?> GetMostUsedTagAsync(Guid userId, CancellationToken cancellationToken)
+        {
+            return await _gunluqDbContext.UserDiaries.Where(x => x.UserId == userId && x.Status == Status.Active).GroupBy(x => x.DiaryTag).Select(x => new MostUsedTagInfo { DiaryTag = x.Key, Count = x.Count() }).OrderByDescending(x => x.Count).FirstOrDefaultAsync(cancellationToken);
+        }
+
+        public async Task<List<TagCountsInfo>> GetTagCountsAsync(Guid userId, CancellationToken cancellationToken)
+        {
+            return await _gunluqDbContext.UserDiaries.Where(x => x.UserId == userId && x.Status == Status.Active).GroupBy(x => x.DiaryTag).Select(x => new TagCountsInfo { DiaryTag = x.Key, AverageFeel = x.Average(x => (int)x.Feel), Count = x.Count() }).OrderByDescending(x => x.Count).ToListAsync();
+        }
+
+        public async Task<int> GetTotalDiaryCountAsync(Guid userId, CancellationToken cancellationToken)
+        {
+            return await _gunluqDbContext.UserDiaries.Where(x => x.UserId == userId && x.Status == Status.Active).CountAsync();
+        }
+
         public async Task<UserDiary?> GetUserDiaryByIdAsync(Guid userDiaryId, CancellationToken cancellationToken)
         {
             return await _gunluqDbContext.UserDiaries.Where(x => x.Id == userDiaryId).FirstOrDefaultAsync(cancellationToken);
@@ -68,6 +94,11 @@ namespace Gunluq_Infrastructure.Repositories
             DateTime endOfDay = startOfDay.AddDays(1);
 
             return await _gunluqDbContext.UserDiaries.FirstOrDefaultAsync(x => x.UserId == userId && (x.CreatedDate >= startOfDay && x.CreatedDate < endOfDay) && x.Status == Status.Active, cancellationToken);
+        }
+
+        public async Task<WorstTagInfo?> GetWorstTagInfoAsync(Guid userId, CancellationToken cancellationToken)
+        {
+            return await _gunluqDbContext.UserDiaries.Where(x => x.UserId == userId && x.Status == Status.Active).GroupBy(x => x.DiaryTag).Select(x => new WorstTagInfo { DiaryTag = x.Key, AverageFeel = x.Average(x => (int)x.Feel)}).OrderByDescending(x => x.AverageFeel).FirstOrDefaultAsync(cancellationToken);
         }
 
         public async Task<UserDiary> UpdateUserDiaryAsync(UserDiary userDiary, CancellationToken cancellationToken)
