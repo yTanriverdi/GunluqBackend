@@ -65,7 +65,7 @@ namespace Gunluq_Infrastructure.Repositories
 
         public async Task<BestTagInfo?> GetBestTagAsync(Guid userId, CancellationToken cancellationToken)
         {
-            return await _gunluqDbContext.UserDiaries.Where(x => x.UserId == userId && x.Status == Status.Active).GroupBy(x => x.DiaryTag).Select(x => new BestTagInfo { DiaryTag = x.Key, AverageFeel = x.Average(x => (int)x.Feel) }).OrderBy(x => x.AverageFeel).FirstOrDefaultAsync(cancellationToken);
+            return await _gunluqDbContext.UserDiaries.Where(x => x.UserId == userId && x.Status == Status.Active).GroupBy(x => x.DiaryTag).Select(x => new BestTagInfo { DiaryTag = x.Key, AverageFeel = x.Average(x => (int)x.Feel) }).OrderByDescending(x => x.AverageFeel).FirstOrDefaultAsync(cancellationToken);
         }
 
         public async Task<MostUsedTagInfo?> GetMostUsedTagAsync(Guid userId, CancellationToken cancellationToken)
@@ -98,7 +98,7 @@ namespace Gunluq_Infrastructure.Repositories
 
         public async Task<WorstTagInfo?> GetWorstTagInfoAsync(Guid userId, CancellationToken cancellationToken)
         {
-            return await _gunluqDbContext.UserDiaries.Where(x => x.UserId == userId && x.Status == Status.Active).GroupBy(x => x.DiaryTag).Select(x => new WorstTagInfo { DiaryTag = x.Key, AverageFeel = x.Average(x => (int)x.Feel)}).OrderByDescending(x => x.AverageFeel).FirstOrDefaultAsync(cancellationToken);
+            return await _gunluqDbContext.UserDiaries.Where(x => x.UserId == userId && x.Status == Status.Active).GroupBy(x => x.DiaryTag).Select(x => new WorstTagInfo { DiaryTag = x.Key, AverageFeel = x.Average(x => (int)x.Feel) }).OrderBy(x => x.AverageFeel).FirstOrDefaultAsync(cancellationToken);
         }
 
         public async Task<UserDiary> UpdateUserDiaryAsync(UserDiary userDiary, CancellationToken cancellationToken)
