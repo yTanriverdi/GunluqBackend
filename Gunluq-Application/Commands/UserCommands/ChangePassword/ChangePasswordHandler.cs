@@ -23,7 +23,7 @@ namespace Gunluq_Application.Commands.UserCommands.ChangePassword
                 return ApplicationResponse<ChangePasswordResponse>
                     .Fail(UserMessages.UserNotFound);
 
-            bool isValid = PasswordHasher.VerifyPassword(changePasswordCommand.NewPassword, changePasswordCommand.OldPassword);
+            bool isValid = PasswordHasher.VerifyPassword(user.Password, changePasswordCommand.NewPassword);
 
             if (!isValid)
                 return ApplicationResponse<ChangePasswordResponse>
